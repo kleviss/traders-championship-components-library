@@ -1,0 +1,116 @@
+.competition-card {
+  background: linear-gradient(#0003, #0003), linear-gradient(104.75deg, #8e63c3, #3c0c62);
+  position: relative;
+  padding: 2rem;
+  border-radius: 20px;
+  width: 93%;
+  color: white;
+  display: flex;
+  gap: 3rem;
+  box-shadow: 0 4px 15px rgba(88, 75, 124, 0.3);
+}
+
+.left-section {
+  flex: 1;
+}
+
+.right-section {
+  flex: 1;
+  margin-top: 3rem;
+}
+
+.title {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  font-weight: bold;
+  color: white;
+}
+
+.input-row {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.input-group {
+  flex: 1;
+}
+
+.input-label {
+  font-size: 1.2rem;
+  margin-bottom: 0.8rem;
+  color: white;
+}
+
+select,
+.entry-fee {
+  width: 90%;
+  border-radius: 12px;
+  border: none;
+  font-size: 1.2rem;
+  background: rgba(255, 255, 255, 0.95);
+  color: #584b7c;
+  padding: 0.3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+select {
+  padding: 0.5rem;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23584B7C' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  padding-right: 2.5rem;
+  cursor: pointer;
+}
+
+.start-button {
+  width: 100%;
+  padding: 1rem;
+  border-radius: 12px;
+  border: none;
+  background: rgba(255, 255, 255, 0.95);
+  color: #584b7c;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.start-button:hover {
+  background: white;
+  transform: translateY(-1px);
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 1.2rem 2rem;
+}
+
+.info-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+}
+
+.info-label {
+  font-size: 1rem;
+  color: white;
+  opacity: 0.9;
+}
+
+.info-value {
+  font-size: 1rem;
+  color: white;
+}
+
+@media (max-width: 1200px) {
+  .competition-card {
+    flex-direction: column;
+    gap: 2rem;
+  }
+}

@@ -1,0 +1,164 @@
+.config-panel {
+  background: white;
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
+
+.config-title {
+  color: #584b7c;
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.account-selector {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.account-tab {
+  padding: 0.5rem 1rem;
+  border: 1px solid #584b7c;
+  border-radius: 8px;
+  background: none;
+  color: #584b7c;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+.account-tab:hover {
+  background: rgba(88, 75, 124, 0.1);
+}
+
+.account-tab.active {
+  background: #584b7c;
+  color: white;
+}
+
+.account-tab.add {
+  background: none;
+  border-style: dashed;
+  font-size: 1.2rem;
+  padding: 0.5rem 0.8rem;
+}
+
+.new-size-form {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.new-size-input {
+  padding: 0.5rem 1rem;
+  border: 1px solid #584b7c;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  color: #584b7c;
+  background-color: #ffffff;
+  width: 120px;
+}
+
+.new-size-input:focus {
+  outline: none;
+  border-color: #584b7c;
+  box-shadow: 0 0 0 2px rgba(88, 75, 124, 0.2);
+}
+
+.new-size-submit,
+.new-size-cancel {
+  padding: 0.5rem 1rem;
+  border: 1px solid #584b7c;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.new-size-submit {
+  background: #584b7c;
+  color: white;
+}
+
+.new-size-submit:hover {
+  background: #473d63;
+}
+
+.new-size-cancel {
+  background: none;
+  color: #584b7c;
+}
+
+.new-size-cancel:hover {
+  background: rgba(88, 75, 124, 0.1);
+}
+
+.config-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.config-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.config-label {
+  font-size: 0.9rem;
+  color: #584b7c;
+  font-weight: 500;
+}
+
+.config-input {
+  padding: 0.8rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  background: #f8f8f8;
+  color: #584b7c;
+}
+
+.config-input:disabled {
+  background: #f0f0f0;
+  cursor: not-allowed;
+}
+
+.config-input:focus {
+  outline: none;
+  border-color: #584b7c;
+  box-shadow: 0 0 0 2px rgba(88, 75, 124, 0.2);
+}
+
+.account-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.delete-account {
+  background: none;
+  border: none;
+  color: #ff6b6b;
+  cursor: pointer;
+  font-size: 1.2rem;
+  padding: 0.2rem;
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+}
+
+.delete-account:hover {
+  opacity: 1;
+}
