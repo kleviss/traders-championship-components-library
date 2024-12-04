@@ -1,13 +1,4 @@
-import './CodeDisplay.css';
-
-import PropTypes from 'prop-types';
-import { useState } from 'react';
-
-const CodeDisplay = ({ config }) => {
-  const [copied, setCopied] = useState(false);
-
-  const generateHTML = () => {
-    const html = `<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -147,7 +138,7 @@ const CodeDisplay = ({ config }) => {
           gap: 2rem;
           width: 95%;
         }
-        
+
         .tc-right-section {
           margin-top: 1rem;
         }
@@ -157,7 +148,7 @@ const CodeDisplay = ({ config }) => {
         .tc-input-row {
           flex-direction: column;
         }
-        
+
         .tc-competition-card select,
         .tc-entry-fee {
           width: 100%;
@@ -174,17 +165,13 @@ const CodeDisplay = ({ config }) => {
             <div class="tc-input-group">
               <div class="tc-input-label">Account Size:</div>
               <select id="tc-accountSize" onchange="updateValues()">
-                ${config.accountSizes
-                  .map(
-                    (acc) =>
-                      `<option value="${acc.size.replace(/[^0-9]/g, '')}">${acc.size}</option>`
-                  )
-                  .join('\n                ')}
+                <option value="10000">$10,000</option>
+                <option value="20000">$20,000</option>
               </select>
             </div>
             <div class="tc-input-group">
               <div class="tc-input-label">Entry Fee:</div>
-              <div class="tc-entry-fee" id="tc-entryFee">${config.accountSizes[0].fee}</div>
+              <div class="tc-entry-fee" id="tc-entryFee">$50</div>
             </div>
           </div>
           <button class="tc-start-button">Start Trading Now</button>
@@ -194,7 +181,7 @@ const CodeDisplay = ({ config }) => {
           <div class="tc-info-grid">
             <div class="tc-info-item">
               <span class="tc-info-label">Min Days</span>
-              <span class="tc-info-value">${config.minDays}</span>
+              <span class="tc-info-value">0</span>
             </div>
             <div class="tc-info-item">
               <span class="tc-info-label">Time Limit</span>
@@ -202,23 +189,23 @@ const CodeDisplay = ({ config }) => {
             </div>
             <div class="tc-info-item">
               <span class="tc-info-label">Max Loss</span>
-              <span class="tc-info-value">${config.maxLoss}%</span>
+              <span class="tc-info-value">15%</span>
             </div>
             <div class="tc-info-item">
               <span class="tc-info-label">Max Profit From Single Trade</span>
-              <span class="tc-info-value">${config.maxProfit}%</span>
+              <span class="tc-info-value">8%</span>
             </div>
             <div class="tc-info-item">
               <span class="tc-info-label">Min Trade Hold Time</span>
-              <span class="tc-info-value">${config.minHoldTime}s</span>
+              <span class="tc-info-value">120s</span>
             </div>
             <div class="tc-info-item">
               <span class="tc-info-label">SL/TP Required</span>
-              <span class="tc-info-value">${config.slTpRequired ? '✓' : '✕'}</span>
+              <span class="tc-info-value">✕</span>
             </div>
             <div class="tc-info-item">
               <span class="tc-info-label">Refund</span>
-              <span class="tc-info-value">${config.refund ? '✓' : '✕'}</span>
+              <span class="tc-info-value">✕</span>
             </div>
           </div>
         </div>
@@ -228,71 +215,9 @@ const CodeDisplay = ({ config }) => {
     <script>
       function updateValues() {
         const accountSize = document.getElementById('tc-accountSize').value;
-        const fees = ${JSON.stringify(
-          config.accountSizes.reduce((obj, item) => {
-            obj[item.size.replace(/[^0-9]/g, '')] = item.fee;
-            return obj;
-          }, {})
-        )};
+        const fees = { 10000: '$50', 20000: '$200' };
         document.getElementById('tc-entryFee').textContent = fees[accountSize];
       }
     </script>
   </body>
-</html>`;
-    return html;
-  };
-
-  const downloadHTML = () => {
-    const html = generateHTML();
-    const blob = new Blob([html], { type: 'text/html' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = '14-day-competition.html';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-  };
-
-  const copyCode = () => {
-    const code = generateHTML();
-    navigator.clipboard.writeText(code).then(() => {
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    });
-  };
-
-  return (
-    <div className='code-container'>
-      <button className='download-button' onClick={downloadHTML}>
-        Download HTML
-      </button>
-      <button className='copy-button' onClick={copyCode}>
-        {copied ? 'Copied!' : 'Copy Code'}
-      </button>
-      <div className='code-content'>
-        <pre>{generateHTML()}</pre>
-      </div>
-    </div>
-  );
-};
-
-CodeDisplay.propTypes = {
-  config: PropTypes.shape({
-    accountSizes: PropTypes.arrayOf(
-      PropTypes.shape({
-        size: PropTypes.string.isRequired,
-        fee: PropTypes.string.isRequired,
-      })
-    ).isRequired,
-    minDays: PropTypes.number.isRequired,
-    maxLoss: PropTypes.number.isRequired,
-    maxProfit: PropTypes.number.isRequired,
-    minHoldTime: PropTypes.number.isRequired,
-    slTpRequired: PropTypes.bool.isRequired,
-    refund: PropTypes.bool.isRequired,
-  }).isRequired,
-};
-
-export default CodeDisplay;
+</html>

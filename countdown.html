@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Countdown Timer</title>
+    <style>
+      /* Countdown Timer Styles */
+      #countdown-timer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        font-family: Arial, sans-serif;
+        margin-top: 20px;
+      }
+
+      .timer-card {
+        display: flex;
+        gap: 10px;
+      }
+
+      .card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100px;
+        height: 100px;
+        background-color: #333;
+        color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        padding: 10px;
+        flex-direction: column-reverse;
+      }
+
+      .card .label {
+        font-size: 16px;
+        color: #5b015d;
+        font-family: 'Suisseintl Regular';
+        margin-top: 10px;
+      }
+
+      .card .value {
+        font-size: 34px;
+        font-weight: bold;
+        color: #5b015e;
+        font-family: 'Suisseintl Regular';
+      }
+
+      .face.top {
+        background-color: #d6b8eb;
+      }
+
+      .face.bottom {
+        background-color: #bb7fea;
+      }
+      @media only screen and (max-width: 768px) {
+        .card {
+          width: 80px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <section id="countdown-timer">
+      <div class="timer-card">
+        <div class="card face top">
+          <div class="label">Days</div>
+          <div class="value" id="days">00</div>
+        </div>
+        <div class="card face bottom">
+          <div class="label">Hours</div>
+          <div class="value" id="hours">00</div>
+        </div>
+        <div class="card face top">
+          <div class="label">Minutes</div>
+          <div class="value" id="minutes">00</div>
+        </div>
+        <div class="card face bottom">
+          <div class="label">Seconds</div>
+          <div class="value" id="seconds">00</div>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      function getNextTuesday() {
+        const now = new Date();
+        const nextTuesday = new Date(now);
+
+        // Set the target time (e.g., Tuesday at 10:00 AM)
+        nextTuesday.setHours(10, 0, 0, 0); // Example: 10:00 AM
+
+        // Calculate days until next Tuesday
+        const dayOfWeek = nextTuesday.getDay();
+        const daysUntilTuesday = (9 - dayOfWeek) % 7 || 7; // Calculate days left for next Tuesday
+        nextTuesday.setDate(nextTuesday.getDate() + daysUntilTuesday);
+
+        // If today is Tuesday and it's past the target time, set for next Tuesday
+        if (dayOfWeek === 2 && now >= nextTuesday) {
+          nextTuesday.setDate(nextTuesday.getDate() + 7);
+        }
+
+        return nextTuesday;
+      }
+
+      function updateCountdown() {
+        const now = new Date();
+        const nextTuesday = getNextTuesday();
+        const timeRemaining = nextTuesday - now;
+
+        const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+
+        document.getElementById('days').textContent = String(days).padStart(2, '0');
+        document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+        document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+        document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+      }
+
+      // Update the countdown every second
+      setInterval(updateCountdown, 1000);
+
+      // Initialize the countdown on page load
+      updateCountdown();
+    </script>
+  </body>
+</html>
