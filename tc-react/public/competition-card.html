@@ -1,42 +1,16 @@
-import './CodeDisplay.css';
-
-import PropTypes from 'prop-types';
-import { useState } from 'react';
-
-const CodeDisplay = ({ config }) => {
-  const [copied, setCopied] = useState(false);
-
-  const generateHTML = () => {
-    const html = `<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>14 Day Competition</title>
+    <title>Competition Card</title>
     <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      }
-      
-      body {
-        min-height: 100vh;
-        background-color: #f5f5f5;
-        padding: 2rem;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-
       .competition-card {
         background: linear-gradient(#0003, #0003), linear-gradient(104.75deg, #8e63c3, #3c0c62);
         position: relative;
         padding: 2rem;
         border-radius: 20px;
         width: 93%;
-        max-width: 1200px;
         color: white;
         display: flex;
         gap: 3rem;
@@ -84,7 +58,7 @@ const CodeDisplay = ({ config }) => {
         font-size: 1.2rem;
         background: rgba(255, 255, 255, 0.95);
         color: #584b7c;
-        padding: 0.8rem;
+        padding: 0.3rem;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -92,6 +66,7 @@ const CodeDisplay = ({ config }) => {
       }
 
       select {
+        padding: 0.5rem;
         appearance: none;
         background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23584B7C' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
         background-repeat: no-repeat;
@@ -108,7 +83,6 @@ const CodeDisplay = ({ config }) => {
         background: rgba(255, 255, 255, 0.95);
         color: #584b7c;
         font-size: 1.2rem;
-        font-weight: bold;
         cursor: pointer;
         transition: all 0.2s ease;
       }
@@ -129,7 +103,6 @@ const CodeDisplay = ({ config }) => {
         justify-content: space-between;
         align-items: center;
         gap: 2rem;
-        padding: 0.5rem 0;
       }
 
       .info-label {
@@ -141,28 +114,12 @@ const CodeDisplay = ({ config }) => {
       .info-value {
         font-size: 1rem;
         color: white;
-        font-weight: 500;
       }
 
       @media (max-width: 1200px) {
         .competition-card {
           flex-direction: column;
           gap: 2rem;
-          width: 95%;
-        }
-        
-        .right-section {
-          margin-top: 1rem;
-        }
-      }
-
-      @media (max-width: 600px) {
-        .input-row {
-          flex-direction: column;
-        }
-        
-        select, .entry-fee {
-          width: 100%;
         }
       }
     </style>
@@ -174,17 +131,16 @@ const CodeDisplay = ({ config }) => {
         <div class="input-row">
           <div class="input-group">
             <div class="input-label">Account Size:</div>
-            <select id="accountSize" onchange="updateValues()">
-              ${config.accountSizes
-                .map(
-                  (acc) => `<option value="${acc.size.replace(/[^0-9]/g, '')}">${acc.size}</option>`
-                )
-                .join('\n              ')}
+            <select id="accountSize">
+              <option value="5000">5000</option>
+              <option value="10000">10000</option>
+              <option value="25000">25000</option>
+              <option value="50000">50000</option>
             </select>
           </div>
           <div class="input-group">
             <div class="input-label">Entry Fee:</div>
-            <div class="entry-fee" id="entryFee">${config.accountSizes[0].fee}</div>
+            <div class="entry-fee" id="entryFee">$97</div>
           </div>
         </div>
         <button class="start-button">Start Trading Now</button>
@@ -194,7 +150,7 @@ const CodeDisplay = ({ config }) => {
         <div class="info-grid">
           <div class="info-item">
             <span class="info-label">Min Days</span>
-            <span class="info-value">${config.minDays}</span>
+            <span class="info-value">1</span>
           </div>
           <div class="info-item">
             <span class="info-label">Time Limit</span>
@@ -202,96 +158,63 @@ const CodeDisplay = ({ config }) => {
           </div>
           <div class="info-item">
             <span class="info-label">Max Loss</span>
-            <span class="info-value">${config.maxLoss}%</span>
+            <span class="info-value">5%</span>
           </div>
           <div class="info-item">
             <span class="info-label">Max Profit From Single Trade</span>
-            <span class="info-value">${config.maxProfit}%</span>
+            <span class="info-value">4%</span>
           </div>
           <div class="info-item">
             <span class="info-label">Min Trade Hold Time</span>
-            <span class="info-value">${config.minHoldTime}s</span>
+            <span class="info-value">180s</span>
           </div>
           <div class="info-item">
             <span class="info-label">SL/TP Required</span>
-            <span class="info-value">${config.slTpRequired ? '✓' : '✕'}</span>
+            <span class="info-value">✓</span>
           </div>
           <div class="info-item">
             <span class="info-label">Refund</span>
-            <span class="info-value">${config.refund ? '✓' : '✕'}</span>
+            <span class="info-value">✓</span>
           </div>
         </div>
       </div>
     </div>
 
     <script>
-      function updateValues() {
-        const accountSize = document.getElementById('accountSize').value;
-        const fees = ${JSON.stringify(
-          config.accountSizes.reduce((obj, item) => {
-            obj[item.size.replace(/[^0-9]/g, '')] = item.fee;
-            return obj;
-          }, {})
-        )};
-        document.getElementById('entryFee').textContent = fees[accountSize];
-      }
+      const config = {
+        accountSizes: [
+          { size: '5000', fee: '$97' },
+          { size: '10000', fee: '$147' },
+          { size: '25000', fee: '$247' },
+          { size: '50000', fee: '$347' },
+        ],
+        minDays: 1,
+        maxLoss: 5,
+        maxProfit: 4,
+        minHoldTime: 180,
+        slTpRequired: true,
+        refund: true,
+      };
+
+      const accountSizeSelect = document.getElementById('accountSize');
+      const entryFeeDiv = document.getElementById('entryFee');
+
+      // Populate account sizes
+      accountSizeSelect.innerHTML = config.accountSizes
+        .map((acc) => `<option value="${acc.size}">${acc.size}</option>`)
+        .join('');
+
+      // Update entry fee when account size changes
+      accountSizeSelect.addEventListener('change', (e) => {
+        const selectedSize = e.target.value;
+        const account = config.accountSizes.find((acc) => acc.size === selectedSize);
+        if (account) {
+          entryFeeDiv.textContent = account.fee;
+        }
+      });
+
+      // Set initial entry fee
+      entryFeeDiv.textContent = config.accountSizes[0].fee;
     </script>
   </body>
-</html>`;
-    return html;
-  };
-
-  const downloadHTML = () => {
-    const html = generateHTML();
-    const blob = new Blob([html], { type: 'text/html' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = '14-day-competition.html';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-  };
-
-  const copyCode = () => {
-    const code = generateHTML();
-    navigator.clipboard.writeText(code).then(() => {
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    });
-  };
-
-  return (
-    <div className='code-container'>
-      <button className='download-button' onClick={downloadHTML}>
-        Download HTML
-      </button>
-      <button className='copy-button' onClick={copyCode}>
-        {copied ? 'Copied!' : 'Copy Code'}
-      </button>
-      <div className='code-content'>
-        <pre>{generateHTML()}</pre>
-      </div>
-    </div>
-  );
-};
-
-CodeDisplay.propTypes = {
-  config: PropTypes.shape({
-    accountSizes: PropTypes.arrayOf(
-      PropTypes.shape({
-        size: PropTypes.string.isRequired,
-        fee: PropTypes.string.isRequired,
-      })
-    ).isRequired,
-    minDays: PropTypes.number.isRequired,
-    maxLoss: PropTypes.number.isRequired,
-    maxProfit: PropTypes.number.isRequired,
-    minHoldTime: PropTypes.number.isRequired,
-    slTpRequired: PropTypes.bool.isRequired,
-    refund: PropTypes.bool.isRequired,
-  }).isRequired,
-};
-
-export default CodeDisplay;
+</html>
